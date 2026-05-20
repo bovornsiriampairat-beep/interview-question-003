@@ -44,31 +44,20 @@
     transition: all 0.2s;
   }
 
-  .btn-approve {
-    background-color: #4a75b3;
+  .btn-green {
+    background-color: #28a745;
     color: white;
   }
-
-  .btn-approve:hover:not(:disabled) {
-    background-color: #4a75b3;
-  }
-
-  .btn-reject-modal {
-    background-color: #4a75b3;
-    color: white;
-  }
-
-  .btn-reject-modal:hover:not(:disabled) {
-    background-color: #4a75b3;
+  .btn-green:hover:not(:disabled) {
+    background-color: #218838;
   }
 
   .btn-reject {
     background-color: #ff0000;
     color: white;
   }
-
   .btn-reject:hover:not(:disabled) {
-    background-color: #ff0000;
+    background-color: #cc0000;
   }
 
   .btn:disabled {
@@ -116,7 +105,6 @@
     border: 1px solid #777;
   }
 
-  /* สไตล์กล่องป๊อปอัพกึ่งกลางหน้าจอ (Modal Windows) */
   .modal-backdrop {
     position: fixed;
     top: 0;
@@ -193,8 +181,7 @@
 <div class="container">
   <div class="action-bar">
     <button class="btn btn-green" [disabled]="!hasSelectedPending()" (click)="openModal('อนุมัติ')">อนุมัติ</button>
-    <button class="btn btn-reject" [disabled]="!hasSelectedPending()"
-      (click)="openModal('ไม่อนุมัติ')">ไม่อนุมัติ</button>
+    <button class="btn btn-reject" [disabled]="!hasSelectedPending()" (click)="openModal('ไม่อนุมัติ')">ไม่อนุมัติ</button>
   </div>
 
   <div class="table-wrapper">
@@ -245,11 +232,11 @@
     </div>
     <div class="modal-footer">
       @if (modalTargetStatus === 'อนุมัติ') {
-      <button class="btn btn-approve" (click)="openModal('อนุมัติ')">อนุมัติ</button>
+      <button class="btn btn-green" (click)="submitStatus()">อนุมัติ</button>
       } @else {
-      <button class="btn btn-reject-modal" (click)="openModal('ไม่อนุมัติ')">ไม่อนุมัติ</button>
+      <button class="btn btn-reject-modal" (click)="submitStatus()">ไม่อนุมัติ</button>
       }
-      <button class="btn" style="background-color: #dc3545; color: white;" (click)="closeModal()">ยกเลิก</button>
+      <button class="btn btn-reject" (click)="closeModal()">ยกเลิก</button>
     </div>
   </div>
 </div>

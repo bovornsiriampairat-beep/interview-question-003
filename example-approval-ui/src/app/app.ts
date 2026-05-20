@@ -33,7 +33,7 @@ export class App implements OnInit {
           title: item.title,
           reason: item.reason,
           status: item.status,
-          selected: false
+          selected: false 
         }));
         this.documents.set(mappedData);
       },
@@ -60,21 +60,18 @@ export class App implements OnInit {
   }
 
   submitStatus(): void {
-    const targetStatus = this.modalTargetStatus; 
+    const targetStatus = this.modalTargetStatus;
+    const currentDocs = this.documents(); 
 
-    const updatedDocs = this.documents().map(doc => {
+    currentDocs.forEach(doc => {
       if (doc.selected && doc.status === 'รออนุมัติ') {
-        return { 
-          ...doc, 
-          status: targetStatus, 
-          reason: this.modalReason || 'xxxxx', 
-          selected: false 
-        };
+        doc.status = targetStatus;               
+        doc.reason = this.modalReason || 'xxxxx'; 
+        doc.selected = false;                   
       }
-      return doc;
     });
 
-    this.documents.set(updatedDocs);
+    this.documents.set([...currentDocs]);
     this.closeModal();
   }
 }
