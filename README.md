@@ -118,6 +118,9 @@ http://localhost:4200
 #### IT 03-3 · Modal ยืนยันการไม่อนุมัติ
 ![IT 03-3 Reject Modal](assets/frontend/it03-3-reject-modal.png)
 
+#### IT 03-1-Update · Refresh ข้อมูลหลังจากกดอนุมัติ
+![IT 03-1 List Updated](assets/frontend/it03-1-updated-status.png)
+
 ---
 
 ## 💡 สรุปสถานะการทำงานของหน้าจอ (Flow State)
