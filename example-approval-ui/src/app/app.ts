@@ -59,19 +59,38 @@ export class App implements OnInit {
     this.modalReason = '';
   }
 
+ 
   submitStatus(): void {
     const targetStatus = this.modalTargetStatus;
     const currentDocs = this.documents(); 
 
-    currentDocs.forEach(doc => {
-      if (doc.selected && doc.status === 'รออนุมัติ') {
-        doc.status = targetStatus;               
-        doc.reason = this.modalReason || 'xxxxx'; 
-        doc.selected = false;                   
+   
+    const updatesPayload = currentDocs
+      .filter(doc => doc.selected && doc.status === 'รออนุมัติ')
+      .map(doc => ({
+        id: doc.id,
+        status: targetStatus,
+        reason: this.modalReason || 'xxxxx'
+      }));
+
+  
+    if (updatesPayload.length === 0) {
+      this.closeModal();
+      return;
+    }
+
+   
+    this.docService.bulkUpdateStatus(updatesPayload).subscribe({
+      next: (response) => {
+        console.log('บันทึกข้อมูลและเซฟสถานะสำเร็จ:', response);
+    
+        this.loadData(); 
+        this.closeModal();
+      },
+      error: (err) => {
+        console.error('เกิดข้อผิดพลาดในการบันทึกค่าลงเซิร์ฟเวอร์หลังบ้าน:', err);
+        alert('ระบบหลังบ้านเกิดข้อผิดพลาด ไม่สามารถส่งค่าสถานะไปอัปเดตได้');
       }
     });
-
-    this.documents.set([...currentDocs]);
-    this.closeModal();
   }
 }

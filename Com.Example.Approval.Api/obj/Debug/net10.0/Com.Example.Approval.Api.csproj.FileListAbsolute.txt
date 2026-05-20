@@ -34,3 +34,4 @@ D:\interview-question-003\Com.Example.Approval.Api\obj\Debug\net10.0\refint\Com.
 D:\interview-question-003\Com.Example.Approval.Api\obj\Debug\net10.0\Com.Example.Approval.Api.pdb
 D:\interview-question-003\Com.Example.Approval.Api\obj\Debug\net10.0\Com.Example.Approval.Api.genruntimeconfig.cache
 D:\interview-question-003\Com.Example.Approval.Api\obj\Debug\net10.0\ref\Com.Example.Approval.Api.dll
+D:\interview-question-003\Com.Example.Approval.Api\obj\Debug\net10.0\Com.Example.Approval.Api.sourcelink.json

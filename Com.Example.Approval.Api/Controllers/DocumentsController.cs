@@ -1,12 +1,13 @@
 using Com.Example.Approval.Api.Data;
-using Com.Example.Approval.Api.DTOs;
+using Com.Example.Approval.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Com.Example.Approval.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+ 
+    [Route("api/[controller]")] 
     public class DocumentsController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -16,36 +17,45 @@ namespace Com.Example.Approval.Api.Controllers
             _context = context;
         }
 
+    
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetDocuments()
         {
-            var docs = await _context.Documents.OrderBy(d => d.Id).ToListAsync();
+            var docs = await _context.Documents.ToListAsync();
             return Ok(docs);
         }
 
+  
         [HttpPost("bulk-approval")]
-        public async Task<IActionResult> BulkApproval([FromBody] UpdateApprovalDto dto)
+        public async Task<IActionResult> BulkApproval([FromBody] List<DocumentUpdateDto> updates)
         {
-            if (dto.Status != "อนุมัติ" && dto.Status != "ไม่อนุมัติ")
+            if (updates == null || !updates.Any()) 
             {
-                return BadRequest(new { message = "สถานะไม่ถูกต้อง" });
+                return BadRequest("ไม่มีข้อมูลส่งมาประมวลผล");
             }
 
-            var targets = await _context.Documents
-                .Where(d => dto.DocumentIds.Contains(d.Id))
-                .ToListAsync();
-
-            foreach (var doc in targets)
+            foreach (var update in updates)
             {
-                if (doc.Status == "รออนุมัติ")
+              
+                var doc = await _context.Documents.FindAsync(update.Id);
+            
+                if (doc != null && doc.Status == "รออนุมัติ")
                 {
-                    doc.Status = dto.Status;
-                    doc.Reason = dto.Reason;
+                    doc.Status = update.Status;
+                    doc.Reason = update.Reason;
                 }
             }
 
             await _context.SaveChangesAsync();
-            return Ok(new { message = "อัปเดตสถานะเสร็จสิ้น" });
+            
+            return Ok(new { message = "บันทึกและอัปเดตสถานะสำเร็จ" });
         }
+    }
+
+    public class DocumentUpdateDto
+    {
+        public int Id { get; set; }
+        public string Status { get; set; } = string.Empty;
+        public string Reason { get; set; } = string.Empty;
     }
 }
