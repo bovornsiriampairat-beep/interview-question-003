@@ -94,6 +94,32 @@ http://localhost:4200
 
 ---
 
+## 📸 ผลลัพธ์การทำงานจริง (Screenshots)
+
+### ⚙️ Backend — .NET Web API
+
+**API Response** · `GET /api/documents` → `:5184`
+
+![API Response](assets/backend/api-response.png)
+
+---
+
+### 🖥️ Frontend — Angular UI
+
+#### IT 03-1 · หน้าจอหลัก — สถานะเริ่มต้น (ยังไม่เลือก Checkbox)
+![IT 03-1 Default](assets/frontend/it03-1-default.png)
+
+#### IT 03-1 · หน้าจอหลัก — เลือก Checkbox แล้ว (ปุ่มทำงานได้)
+![IT 03-1 Selected](assets/frontend/it03-1-selected.png)
+
+#### IT 03-2 · Modal ยืนยันการอนุมัติ
+![IT 03-2 Approve Modal](assets/frontend/it03-2-approve-modal.png)
+
+#### IT 03-3 · Modal ยืนยันการไม่อนุมัติ
+![IT 03-3 Reject Modal](assets/frontend/it03-3-reject-modal.png)
+
+---
+
 ## 💡 สรุปสถานะการทำงานของหน้าจอ (Flow State)
 
 ```
